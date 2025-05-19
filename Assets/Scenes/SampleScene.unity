@@ -980,9 +980,65 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 75791535269036486, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _fireParticle
+      value: 
+      objectReference: {fileID: 5358845237505619170, guid: 0ceb664a692170b46b378d500f6f081e, type: 3}
     - target: {fileID: 1788389793189225171, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_Name
+      value: Test Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _aimInputAction.m_Name
+      value: Aim Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_Interactions
+      value: MultiTap
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_ExpectedControlType
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _aimInputAction.m_SingletonActionBindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_SingletonActionBindings.Array.data[0].m_Id
+      value: ddef320c-6870-4b87-a6e0-e66e7cebcff6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Mouse>/leftButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Test Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _aimInputAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 1c1fc285-426f-44c9-a912-491d1ece4438
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _testKey.m_SingletonActionBindings.Array.data[0].m_Interactions
+      value: MultiTap
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125261678778503764, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
+      propertyPath: _aimInputAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Aim Input
       objectReference: {fileID: 0}
     - target: {fileID: 5430736730930142287, guid: 11fc6abd12246ac429de1bce35d6ae6b, type: 3}
       propertyPath: m_LocalPosition.x

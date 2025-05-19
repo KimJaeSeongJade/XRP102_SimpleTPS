@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
+    public GameObject _particlePrefab;
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -13,10 +15,8 @@ public class Tester : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                ReferenceRegistry.GetProvider(hit.collider.gameObject).
-                GetAs<NormalMonster>().
-                TakeDamage(10);
+                Instantiate(_particlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
             }
-        }   
+        }
     }
 }

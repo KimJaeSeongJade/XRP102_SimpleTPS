@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Animator _animator;
     private Image _aimImage;
     private InputAction _aimInputAction;
+    private InputAction _shootInputAction;
 
     [SerializeField] private CinemachineVirtualCamera _aimCamera;
     [SerializeField] private Gun _gun;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         _animator = GetComponent<Animator>();
         _aimImage = _aimAnimator.GetComponent<Image>();
         _aimInputAction = GetComponent<PlayerInput>().actions["Aim"];
+        _shootInputAction = GetComponent<PlayerInput>().actions["Shoot"];
 
         _hpUI.SetImageFillAmount(1);
         _status.CurrentHp.Value = _status.MaxHP;
@@ -47,14 +49,16 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         HandleMovement();
         // HandleAiming();
-        // HandleShooting();
+        HandleShooting();
     }
 
-    // private void HandleShooting()
-    public void OnShoot()
+    private void HandleShooting()
     {
-        //if (_status.IsAiming.Value && Input.GetKey(_shootKey))
-        if (_status.IsAiming.Value)
+        // _shootInputAction.WasPressedThisFrame() => 이번 프레임에 눌렸는가? (GetKeyDown)
+        // _shootInputAction.WasReleasedThisFrame() => 이번 프레임에 떼어졌는가? (GetKeyUp)
+        // _shootInputAction.IsPressed() => 지금 눌려있는가? (GetKey)
+
+        if (_status.IsAiming.Value && _shootInputAction.IsPressed())
         {
             _status.IsAttacking.Value = _gun.Shoot();
         }
@@ -138,6 +142,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         _status.IsAttacking.Subscribe(SetAttackAnimation);
 
         // inputs----
+        _shootInputAction.Enable();
         _aimInputAction.Enable();
         _aimInputAction.started += HandleAiming;
         _aimInputAction.canceled += HandleAiming;
@@ -156,6 +161,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         // inputs----
         _aimInputAction.Disable();
+        _shootInputAction.Disable();
         _aimInputAction.started -= HandleAiming;
         _aimInputAction.canceled -= HandleAiming;
     }
