@@ -18,34 +18,34 @@ public class NormalMonster : Monster, IDamagable
     private NavMeshAgent _navMeshAgent;
     [SerializeField] private Transform _targetTransform;
 
-    private void Awake() => Init();
-    private void Update() => HandleControl();
+    // private void Awake() => Init();
+    // private void Update() => HandleControl();
 
-    private void Init()
-    {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _navMeshAgent.isStopped = true;
-    }
+    // private void Init()
+    // {
+    //     _navMeshAgent = GetComponent<NavMeshAgent>();
+    //     _navMeshAgent.isStopped = true;
+    // }
 
-    private void HandleControl()
-    {
-        if (!_isActivateControl) return;
+    // private void HandleControl()
+    // {
+    //     if (!_isActivateControl) return;
 
-        HandleMove();
-    }
+    //     HandleMove();
+    // }
 
-    private void HandleMove()
-    {
-        if (_targetTransform == null) return;
+    // private void HandleMove()
+    // {
+    //     if (_targetTransform == null) return;
 
-        if (_canTracking)
-        {
-            _navMeshAgent.SetDestination(_targetTransform.position);
-        }
+    //     if (_canTracking)
+    //     {
+    //         _navMeshAgent.SetDestination(_targetTransform.position);
+    //     }
 
-        _navMeshAgent.isStopped = !_canTracking;
-        IsMoving.Value = _canTracking;
-    }
+    //     _navMeshAgent.isStopped = !_canTracking;
+    //     IsMoving.Value = _canTracking;
+    // }
 
 
     public void TakeDamage(int value)
@@ -53,5 +53,6 @@ public class NormalMonster : Monster, IDamagable
         // 데미지 판정 구현
         // 체력 깎고
         // 체력이 0 이하가 되면 Dead 처리
+        Debug.Log($"{gameObject.name} : {value} 데미지 입음");
     }
 }
