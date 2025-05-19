@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private PlayerMovement _movement;
     private Animator _animator;
     private Image _aimImage;
+    private InputAction _aimInputAction;
 
     [SerializeField] private CinemachineVirtualCamera _aimCamera;
     [SerializeField] private Gun _gun;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         _movement = GetComponent<PlayerMovement>();
         _animator = GetComponent<Animator>();
         _aimImage = _aimAnimator.GetComponent<Image>();
+        _aimInputAction = GetComponent<PlayerInput>().actions["Aim"];
 
         _hpUI.SetImageFillAmount(1);
         _status.CurrentHp.Value = _status.MaxHP;
@@ -43,13 +46,15 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (!IsControlActivate) return;
 
         HandleMovement();
-        HandleAiming();
-        HandleShooting();
+        // HandleAiming();
+        // HandleShooting();
     }
 
-    private void HandleShooting()
+    // private void HandleShooting()
+    public void OnShoot()
     {
-        if (_status.IsAiming.Value && Input.GetKey(_shootKey))
+        //if (_status.IsAiming.Value && Input.GetKey(_shootKey))
+        if (_status.IsAiming.Value)
         {
             _status.IsAttacking.Value = _gun.Shoot();
         }
@@ -79,15 +84,23 @@ public class PlayerController : MonoBehaviour, IDamagable
         // Aim 상태일 때만.
         if (_status.IsAiming.Value)
         {
-            Vector3 input = _movement.GetInputDirection();
-            _animator.SetFloat("X", input.x);
-            _animator.SetFloat("Z", input.z);
+            // Vector3 input = _movement.GetInputDirection();
+            // _animator.SetFloat("X", input.x);
+            // _animator.SetFloat("Z", input.z);
+
+            _animator.SetFloat("X", _movement.InputDirection.x);
+            _animator.SetFloat("Z", _movement.InputDirection.y);
         }
     }
 
-    private void HandleAiming()
+    private void HandleAiming(InputAction.CallbackContext ctx)
     {
-        _status.IsAiming.Value = Input.GetKey(_aimKey);
+        // _status.IsAiming.Value = Input.GetKey(_aimKey);
+        _status.IsAiming.Value = ctx.started;
+
+        // ctx.started => 키 입력이 시작됐는지 판별
+        // ctx.performed => 키 입력이 진행중인지 판별
+        // ctx.canceled => 키 입력이 취소됐는지(떼어졌는지) 판별
     }
 
     public void TakeDamage(int value)
@@ -123,6 +136,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         _status.IsAiming.Subscribe(SetAimAnimation);
 
         _status.IsAttacking.Subscribe(SetAttackAnimation);
+
+        // inputs----
+        _aimInputAction.Enable();
+        _aimInputAction.started += HandleAiming;
+        _aimInputAction.canceled += HandleAiming;
     }
 
     public void UnsubscribeEvents()
@@ -135,6 +153,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         _status.IsAiming.Unsubscribe(SetAimAnimation);
 
         _status.IsAttacking.Unsubscribe(SetAttackAnimation);
+
+        // inputs----
+        _aimInputAction.Disable();
+        _aimInputAction.started -= HandleAiming;
+        _aimInputAction.canceled -= HandleAiming;
     }
 
     private void SetAimAnimation(bool value)
